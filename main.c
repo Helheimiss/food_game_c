@@ -29,11 +29,11 @@ int main(void)
     "#                    #\n"
     "#                 ?  #\n"
     "#                 @  #\n"
-    "#                 *  #\n"
+    "#                    #\n"
     "######################\n";
 
     const char plr = '@';
-    const char plr_part = '*';
+    // const char plr_part = '*';
     const char obj = '?';
     const char food = '$';
 
