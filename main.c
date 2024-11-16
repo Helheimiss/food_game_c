@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <conio.h>
-#include <Windows.h>
+#include <time.h>
+#include <stdlib.h>
+#include <windows.h>
 
 int WhereObj(char map[], int map_length, char obj)
 {
@@ -11,6 +12,11 @@ int WhereObj(char map[], int map_length, char obj)
     }
     
     return -1;
+}
+
+int RandomInRange(int min, int max) 
+{
+    return rand() % (max - min + 1) + min;
 }
 
 int main(void)
@@ -29,6 +35,7 @@ int main(void)
     const char plr = '@';
     const char plr_part = '*';
     const char obj = '?';
+    const char food = '$';
 
     int map_length = sizeof(map) / sizeof(map[0]);
     int where_plr = WhereObj(map, map_length, plr);
@@ -38,20 +45,32 @@ int main(void)
     int new_pos;
     char ch;
 
+    int how_many_food = 0;
+    const int max_food = 5;
+
     map[where_obj] = ' ';
 
-    // printf("%d\n", where_plr);
-    // printf("%d\n", where_obj);
-    // printf("%d\n", move);
+    for (int i = 0; i < max_food; i++)
+    {
+        while (1) 
+        {
+            int rand_loc = RandomInRange(0, map_length - 1);
+            if (map[rand_loc] == ' ') 
+            {
+                map[rand_loc] = food;
+                break;
+            }
+        }
+    }
 
-    // return 0;
 
     while (1)
     {
         system("cls");
+        printf("money: %d%c\n", how_many_food, food);
         printf("%s", map);
         where_plr = WhereObj(map, map_length, plr);
-        if (where_plr == -1) break;
+        if (where_plr == -1 || how_many_food == max_food) break;
 
         ch = _getch();
         new_pos = where_plr;
@@ -65,6 +84,7 @@ int main(void)
         if (map[new_pos] != '#')
         {
             map[where_plr] = ' ';
+            how_many_food = map[new_pos] == food ? how_many_food + 1 : how_many_food;
             map[new_pos] = plr;
         }
     }
