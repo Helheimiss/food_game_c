@@ -67,7 +67,7 @@ int main(void)
     while (1)
     {
         system("cls");
-        printf("money: %d%c\n", how_many_food, food);
+        printf("food: %d%c\n", how_many_food, food);
         printf("%s", map);
         where_plr = WhereObj(map, map_length, plr);
         if (where_plr == -1 || how_many_food == max_food) break;
@@ -89,6 +89,8 @@ int main(void)
         }
     }
     
+    printf("\nCompleted!\nPress any button to exit...");
+    _getch();
 
     return 0;
 }
